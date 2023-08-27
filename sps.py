@@ -3,8 +3,8 @@ import speech_recognition as sr
 from gtts import gTTS
 import asyncio
 import pygame
-import io
 import sys
+import io
 
 
 def capture_speech():
@@ -39,7 +39,6 @@ def capture_speech():
             print(f"Error: {e}")
             return None
 
-
 def translate_text(text, target_language="pt"):
     translator = Translator()
 
@@ -55,7 +54,6 @@ def translate_text(text, target_language="pt"):
         print(f"Translation Error: {e}")
         return None
 
-
 def text_to_speech(text, lang="pt"):
     tts = gTTS(text=text, lang=lang, slow=False)
     audio_stream = io.BytesIO()
@@ -69,19 +67,18 @@ def text_to_speech(text, lang="pt"):
     while pygame.mixer.music.get_busy():
         continue
 
-
 def choose_target_language():
     language_mapping = {
-            "english": "en",
-            "portuguese": "pt",
-            "spanish": "es",
-            "french": "fr",
-            "italian": "it",
-            "german": "de",
-            "russian": "ru",
-            "chinese": "zh-cn",
-            "japanese": "ja"
-        }
+        "english": "en",
+        "portuguese": "pt",
+        "spanish": "es",
+        "french": "fr",
+        "italian": "it",
+        "german": "de",
+        "russian": "ru",
+        "chinese": "zh-cn",
+        "japanese": "ja"
+    }
 
     while True:
         language_input = capture_speech()
@@ -91,7 +88,6 @@ def choose_target_language():
             return language_mapping[language_input]
         else:
             text_to_speech("Invalid language choice. Please try again.", lang="en")
-
 
 async def recognize_and_translate(activation_phrase="start translation", termination_phrase="stop translation", quit_phrase="quit program"):
     # State variable to track translation mode
@@ -130,11 +126,9 @@ async def recognize_and_translate(activation_phrase="start translation", termina
                 if translated_result:
                     text_to_speech(translated_result, lang=target_language)
 
-
 def main():
     # Start the translation process in a new event loop
     asyncio.run(recognize_and_translate())
-
 
 if __name__ == "__main__":
     main()
